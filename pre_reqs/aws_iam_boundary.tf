@@ -4,6 +4,8 @@ data "aws_iam_policy_document" "terraform_boundary" {
     effect = "Allow"
     actions = [
       "ec2:*",
+      "ecr:*",
+      "eks:*",
       "elasticloadbalancing:*",
       "rds:*",
       "s3:*",
@@ -14,7 +16,9 @@ data "aws_iam_policy_document" "terraform_boundary" {
       "sns:*",
       "sqs:*",
       "secretsmanager:*",
-      "ssm:*"
+      "ssm:*",
+      "ecr:*", # added
+      "eks:*",
     ]
     resources = ["*"]
   }

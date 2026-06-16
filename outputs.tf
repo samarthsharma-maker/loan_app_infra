@@ -71,7 +71,7 @@ output "frontend_ecr_push_role_name" {
 output "github_ci_roles_summary" {
   description = "Summary of GitHub CI/CD IAM roles for application repos (backend & frontend)"
   value = {
-    oidc_provider_arn = aws_iam_openid_connect_provider.github.arn
+    oidc_provider_arn = data.aws_iam_openid_connect_provider.github.arn
 
     backend = {
       repo        = "loanhub-backend"

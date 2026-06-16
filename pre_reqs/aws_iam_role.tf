@@ -51,8 +51,8 @@ resource "aws_iam_role_policy_attachment" "terraform_admin" {
 # Region lock policy - enforce operations only in specified region
 data "aws_iam_policy_document" "region_lock" {
   statement {
-    sid     = "DenyOutsideRegion"
-    effect  = "Deny"
+    sid    = "DenyOutsideRegion"
+    effect = "Deny"
     not_actions = [
       "iam:*",
       "sts:*",
