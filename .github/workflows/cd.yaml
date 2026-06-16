@@ -1,10 +1,9 @@
-name: CD — Terraform Apply
+name: CD Terraform Apply
 
 # Required GitHub Secrets:
 # - AWS_ROLE_ARN: ARN of the IAM role for OIDC assume role
 # - ORG_NAME: GitHub organization name
 # - GH_TOKEN: GitHub Personal Access Token
-# (OIDC_PROVIDER_ARN and AWS_REGION are created by pre_reqs)
 
 on:
   push:
@@ -20,11 +19,11 @@ env:
   TF_VERSION: 1.15.6
   AWS_REGION: ap-south-1
   TF_VAR_github_org: ${{ secrets.ORG_NAME }}
-  TF_VAR_github_token: ${{ secrets.GH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   terraform-apply:
-    name: 🚀 Apply Changes
+    name: Apply Changes
     runs-on: ubuntu-latest
 
     steps:
@@ -43,208 +42,12 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Cache Terraform plugins
-        uses: actions/cache@v3
-        with:
-          path: ~/.terraform.d/plugin-cache
-          key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
-          restore-keys: ${{ runner.os }}-terraform-
-
-      - name: Terraform Version
-        run: terraform version
-
       - name: Terraform Init
-        id: init
         run: terraform init
 
       - name: Terraform Validate
-        id: validate
         run: terraform validate
 
-      - name: Terraform Plan
-        id: plan
-        env:
-          TF_LOCK_TIMEOUT: 5m
-        run: |
-          terraform plan -no-color -out=tfplan -input=false -parallelism=3 -lock-timeout=5m
-        timeout-minutes: 40
-        continue-on-error: true
-
-      - name: Display Plan
-        if: always()
-        run: |
-          echo "📋 Terraform Plan Output:"
-          terraform show -no-color tfplan 2>/dev/null || echo "Plan not available"
-
       - name: Terraform Apply
-        id: apply
-        run: |
-          echo "🚀 Applying Terraform configuration..."
-          terraform apply -no-color -input=false -auto-approve tfplan
-        continue-on-error: true
-
-      - name: Extract Outputs
-        id: outputs
-        if: steps.apply.outcome == 'success'
-        run: |
-          echo "📤 Extracting Terraform outputs..."
-          terraform output -json > outputs.json
-          cat outputs.json
-
-      - name: Save outputs artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-outputs
-          path: outputs.json
-          retention-days: 30
-
-      - name: Post Apply Status
-        if: always()
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const planStatus = '${{ steps.plan.outcome }}';
-            const applyStatus = '${{ steps.apply.outcome }}';
-
-            const statusIcon = s => {
-              if (s === 'success') return '✅';
-              if (s === 'failure') return '❌';
-              return '⚠️';
-            };
-
-            const body = `## 🚀 Terraform Apply Results
-            | Step | Status |
-            |------|--------|
-            | Plan | ${statusIcon(planStatus)} \`${planStatus}\` |
-            | Apply | ${statusIcon(applyStatus)} \`${applyStatus}\` |
-
-            **Triggered by:** @${{ github.actor }}
-            **Commit:** [\`${{ github.event.head_commit.id }}\`](${{ github.event.head_commit.url }})
-            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-            ${applyStatus === 'success' ? '✅ **Infrastructure deployed successfully!**' : '❌ **Deployment failed - check logs**'}`;
-
-            github.rest.repos.createCommitComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-              body
-            });
-
-      - name: Fail if apply failed
-        if: steps.apply.outcome == 'failure'
-        run: exit 1
-
-  post-deployment:
-    name: 📊 Post-Deployment Validation
-    runs-on: ubuntu-latest
-    needs: terraform-apply
-    if: always()
-    timeout-minutes: 60
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
-          mask-aws-account-id: true
-
-      - name: Download outputs
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform-outputs
-          path: .
-
-      - name: Wait for EKS Cluster Active
-        run: |
-          echo "⏳ Waiting for EKS cluster to be active (this may take 15-20 minutes)..."
-
-          EKS_CLUSTER=$(jq -r '.eks_cluster_name.value' outputs.json)
-          MAX_ATTEMPTS=60
-          ATTEMPT=0
-
-          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-            STATUS=$(aws eks describe-cluster --name "$EKS_CLUSTER" --query 'cluster.status' --output text 2>/dev/null || echo "NOT_FOUND")
-
-            if [ "$STATUS" == "ACTIVE" ]; then
-              echo "✅ EKS Cluster is ACTIVE"
-              break
-            fi
-
-            echo "Current status: $STATUS (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS)"
-            ATTEMPT=$((ATTEMPT+1))
-            sleep 20
-          done
-
-          if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
-            echo "❌ EKS cluster did not become active within timeout"
-            exit 1
-          fi
-
-      - name: Wait for RDS Available
-        run: |
-          echo "⏳ Waiting for RDS instance to be available (this may take 10-15 minutes)..."
-
-          RDS_ENDPOINT=$(jq -r '.rds_endpoint.value' outputs.json)
-          RDS_INSTANCE=$(echo "$RDS_ENDPOINT" | cut -d. -f1)
-          MAX_ATTEMPTS=45
-          ATTEMPT=0
-
-          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-            STATUS=$(aws rds describe-db-instances --db-instance-identifier "$RDS_INSTANCE" --query 'DBInstances[0].DBInstanceStatus' --output text 2>/dev/null || echo "NOT_FOUND")
-
-            if [ "$STATUS" == "available" ]; then
-              echo "✅ RDS Instance is available"
-              break
-            fi
-
-            echo "Current status: $STATUS (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS)"
-            ATTEMPT=$((ATTEMPT+1))
-            sleep 20
-          done
-
-          if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
-            echo "❌ RDS instance did not become available within timeout"
-            exit 1
-          fi
-
-      - name: Validate AWS Resources
-        run: |
-          echo "🔍 Validating deployed AWS resources..."
-
-          # Extract key outputs
-          EKS_CLUSTER=$(jq -r '.eks_cluster_name.value' outputs.json)
-          RDS_ENDPOINT=$(jq -r '.rds_endpoint.value' outputs.json)
-
-          echo "EKS Cluster: $EKS_CLUSTER"
-          echo "RDS Endpoint: $RDS_ENDPOINT"
-
-          # Validate EKS cluster
-          if [ ! -z "$EKS_CLUSTER" ]; then
-            echo "✅ EKS Cluster created: $EKS_CLUSTER"
-          fi
-
-          # Validate RDS endpoint
-          if [ ! -z "$RDS_ENDPOINT" ]; then
-            echo "✅ RDS Instance created: $RDS_ENDPOINT"
-          fi
-
-      - name: Generate Summary
-        run: |
-          echo "## 📋 Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Deployment Status:** ✅ Complete" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Created/Updated Resources:" >> $GITHUB_STEP_SUMMARY
-          jq -r 'keys[] as $key | "- \($key): \(.[$key].value)"' outputs.json >> $GITHUB_STEP_SUMMARY || true
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Next Steps:**" >> $GITHUB_STEP_SUMMARY
-          echo "1. Update kubeconfig: \`aws eks update-kubeconfig --name loanhub-{env}\`" >> $GITHUB_STEP_SUMMARY
-          echo "2. Deploy applications to EKS" >> $GITHUB_STEP_SUMMARY
-          echo "3. Configure DNS and load balancers" >> $GITHUB_STEP_SUMMARY
+        run: terraform apply -no-color -input=false -auto-approve -var "github_token=${{ secrets.GH_TOKEN }}"
+        timeout-minutes: 60
