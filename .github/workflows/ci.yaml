@@ -148,6 +148,10 @@ jobs:
         id: init
         run: terraform init
 
+      - name: check memory
+        id: memory_check
+        run: df -h 
+
       - name: Terraform Plan
         id: plan
         run: |
