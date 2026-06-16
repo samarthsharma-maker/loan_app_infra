@@ -119,7 +119,6 @@ jobs:
   terraform-plan:
     name: 📋 Plan & Analysis
     runs-on: ubuntu-latest
-    needs: terraform-validate
 
     steps:
       - name: Checkout code
