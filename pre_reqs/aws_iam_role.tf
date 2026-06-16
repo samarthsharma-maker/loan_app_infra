@@ -70,23 +70,3 @@ resource "aws_iam_role_policy" "region_lock" {
   policy = data.aws_iam_policy_document.region_lock.json
 }
 
-# IAM read permissions - for data source lookups
-data "aws_iam_policy_document" "iam_read" {
-  statement {
-    sid    = "AllowIAMRead"
-    effect = "Allow"
-    actions = [
-      "iam:GetRole",
-      "iam:GetRolePolicy",
-      "iam:ListAttachedRolePolicies",
-      "iam:ListRolePolicies"
-    ]
-    resources = ["*"]
-  }
-}
-
-resource "aws_iam_role_policy" "iam_read" {
-  name   = "${local.role_name}-iam-read"
-  role   = aws_iam_role.terraform_cicd.id
-  policy = data.aws_iam_policy_document.iam_read.json
-}

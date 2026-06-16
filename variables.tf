@@ -38,16 +38,6 @@ data "aws_availability_zones" "available" {
 
 data "aws_caller_identity" "current" {}
 
-variable "eks_admin_role_name" {
-  description = "Name of the IAM role to grant EKS cluster-admin access (e.g. your SSO role)"
-  type        = string
-  default     = "AWSReservedSSO_AdministratorAccess_28d3ec7be400d057"
-}
-
-data "aws_iam_role" "admin" {
-  name = var.eks_admin_role_name
-}
-
 locals {
   name = "loanhub-${var.environment}"
   azs  = slice(data.aws_availability_zones.available.names, 0, 2)
