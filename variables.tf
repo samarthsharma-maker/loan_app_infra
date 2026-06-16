@@ -32,6 +32,12 @@ variable "github_org" {
   type        = string
 }
 
+variable "github_token" {
+  description = "GitHub Personal Access Token"
+  type        = string
+  sensitive   = true
+}
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
