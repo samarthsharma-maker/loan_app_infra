@@ -70,24 +70,23 @@ resource "aws_iam_role_policy" "region_lock" {
   policy = data.aws_iam_policy_document.region_lock.json
 }
 
-# Session name policy - enforce session naming for audit trail
-data "aws_iam_policy_document" "session_name" {
+# IAM read permissions - for data source lookups
+data "aws_iam_policy_document" "iam_read" {
   statement {
-    sid       = "EnforceSessionName"
-    effect    = "Allow"
-    actions   = ["*"]
+    sid    = "AllowIAMRead"
+    effect = "Allow"
+    actions = [
+      "iam:GetRole",
+      "iam:GetRolePolicy",
+      "iam:ListAttachedRolePolicies",
+      "iam:ListRolePolicies"
+    ]
     resources = ["*"]
-
-    condition {
-      test     = "StringLike"
-      variable = "aws:PrincipalTag/github_actor"
-      values   = ["*"]
-    }
   }
 }
 
-resource "aws_iam_role_policy" "session_name" {
-  name   = "${local.role_name}-session-name"
+resource "aws_iam_role_policy" "iam_read" {
+  name   = "${local.role_name}-iam-read"
   role   = aws_iam_role.terraform_cicd.id
-  policy = data.aws_iam_policy_document.session_name.json
+  policy = data.aws_iam_policy_document.iam_read.json
 }
