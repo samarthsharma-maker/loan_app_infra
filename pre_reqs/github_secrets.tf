@@ -20,3 +20,17 @@ resource "github_actions_secret" "oidc_provider_arn" {
   secret_name     = "OIDC_PROVIDER_ARN"
   plaintext_value = aws_iam_openid_connect_provider.github.arn
 }
+
+# Create ORG_NAME secret for CI/CD workflows to use
+resource "github_actions_secret" "org_name" {
+  repository      = local.github_repo
+  secret_name     = "ORG_NAME"
+  plaintext_value = var.github_org
+}
+
+# Create GH_TOKEN secret for CI/CD workflows to use
+resource "github_actions_secret" "gh_token" {
+  repository      = local.github_repo
+  secret_name     = "GH_TOKEN"
+  plaintext_value = var.github_token
+}

@@ -54,7 +54,7 @@ output "terraform_outputs_summary" {
     terraform_cicd_role_arn  = aws_iam_role.terraform_cicd.arn
     terraform_cicd_role_name = aws_iam_role.terraform_cicd.name
     permission_boundary_arn  = aws_iam_policy.terraform_boundary.arn
-    secrets_created          = ["AWS_ROLE_ARN", "AWS_REGION", "GITHUB_OIDC_PROVIDER_ARN"]
+    secrets_created          = ["AWS_ROLE_ARN", "AWS_REGION", "OIDC_PROVIDER_ARN", "ORG_NAME", "GH_TOKEN"]
     github_secrets_url       = "https://github.com/${local.github_org}/${local.github_repo}/settings/secrets/actions"
   }
 }
