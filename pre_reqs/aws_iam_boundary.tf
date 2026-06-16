@@ -1,8 +1,8 @@
 data "aws_iam_policy_document" "terraform_boundary" {
   statement {
-    sid       = "AllowEC2AndNetworking"
-    effect    = "Allow"
-    actions   = [
+    sid    = "AllowEC2AndNetworking"
+    effect = "Allow"
+    actions = [
       "ec2:*",
       "elasticloadbalancing:*",
       "rds:*",
@@ -20,9 +20,9 @@ data "aws_iam_policy_document" "terraform_boundary" {
   }
 
   statement {
-    sid       = "DenyDangerousIAMActions"
-    effect    = "Deny"
-    actions   = [
+    sid    = "DenyDangerousIAMActions"
+    effect = "Deny"
+    actions = [
       "iam:DeleteUser",
       "iam:DeleteGroup",
       "iam:DeleteRole",
@@ -45,9 +45,9 @@ data "aws_iam_policy_document" "terraform_boundary" {
   }
 
   statement {
-    sid       = "DenyOrganizationAndBillingChanges"
-    effect    = "Deny"
-    actions   = [
+    sid    = "DenyOrganizationAndBillingChanges"
+    effect = "Deny"
+    actions = [
       "organizations:*",
       "account:*",
       "billing:*",
@@ -57,9 +57,9 @@ data "aws_iam_policy_document" "terraform_boundary" {
   }
 
   statement {
-    sid       = "DenyPermissionBoundaryModification"
-    effect    = "Deny"
-    actions   = [
+    sid    = "DenyPermissionBoundaryModification"
+    effect = "Deny"
+    actions = [
       "iam:PutUserPermissionsBoundary",
       "iam:PutRolePermissionsBoundary",
       "iam:DeleteUserPermissionsBoundary",

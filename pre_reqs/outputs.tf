@@ -46,15 +46,15 @@ output "github_secrets_url" {
 output "terraform_outputs_summary" {
   description = "Complete summary of all outputs"
   value = {
-    aws_account_id              = local.aws_account_id
-    aws_region                  = local.aws_region
-    github_organization         = local.github_org
-    github_repository           = local.github_repo
-    github_oidc_provider_arn    = aws_iam_openid_connect_provider.github.arn
-    terraform_cicd_role_arn     = aws_iam_role.terraform_cicd.arn
-    terraform_cicd_role_name    = aws_iam_role.terraform_cicd.name
-    permission_boundary_arn     = aws_iam_policy.terraform_boundary.arn
-    secrets_created             = ["AWS_ROLE_ARN", "AWS_REGION", "GITHUB_OIDC_PROVIDER_ARN"]
-    github_secrets_url          = "https://github.com/${local.github_org}/${local.github_repo}/settings/secrets/actions"
+    aws_account_id           = local.aws_account_id
+    aws_region               = local.aws_region
+    github_organization      = local.github_org
+    github_repository        = local.github_repo
+    github_oidc_provider_arn = aws_iam_openid_connect_provider.github.arn
+    terraform_cicd_role_arn  = aws_iam_role.terraform_cicd.arn
+    terraform_cicd_role_name = aws_iam_role.terraform_cicd.name
+    permission_boundary_arn  = aws_iam_policy.terraform_boundary.arn
+    secrets_created          = ["AWS_ROLE_ARN", "AWS_REGION", "GITHUB_OIDC_PROVIDER_ARN"]
+    github_secrets_url       = "https://github.com/${local.github_org}/${local.github_repo}/settings/secrets/actions"
   }
 }
