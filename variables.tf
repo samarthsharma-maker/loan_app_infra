@@ -38,11 +38,11 @@ variable "github_token" {
   sensitive   = true
 }
 
-variable "gitops_token" {
-  description = "GitHub token for accessing GitOps repository (loanhub-gitops)"
-  type        = string
-  sensitive   = true
-}
+# variable "gitops_token" {
+#   description = "GitHub token for accessing GitOps repository (loanhub-gitops)"
+#   type        = string
+#   sensitive   = true
+# }
 
 data "aws_availability_zones" "available" {
   state = "available"

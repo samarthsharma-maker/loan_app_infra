@@ -49,15 +49,15 @@ resource "github_actions_secret" "frontend_ecr_uri" {
   value       = module.ecr["loanapp-frontend"].repository_url
 }
 
-# GitOps Token (for loanhub-gitops repository updates)
-resource "github_actions_secret" "backend_gitops_token" {
-  repository  = "loan_app_backend"
-  secret_name = "GITOPS_TOKEN"
-  value       = var.gitops_token
-}
+# # GitOps Token (for loanhub-gitops repository updates)
+# resource "github_actions_secret" "backend_gitops_token" {
+#   repository  = "loan_app_backend"
+#   secret_name = "GITOPS_TOKEN"
+#   value       = var.gitops_token
+# }
 
-resource "github_actions_secret" "frontend_gitops_token" {
-  repository  = "loan_app_frontend"
-  secret_name = "GITOPS_TOKEN"
-  value       = var.gitops_token
-}
+# resource "github_actions_secret" "frontend_gitops_token" {
+#   repository  = "loan_app_frontend"
+#   secret_name = "GITOPS_TOKEN"
+#   value       = var.gitops_token
+# }
