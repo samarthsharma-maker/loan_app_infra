@@ -1,0 +1,22 @@
+# AWS Configuration
+aws_region = "ap-south-1"
+
+# Project Configuration
+project_name = "LoanApp"
+environment  = "development"
+short_name   = "loanapp"
+
+# GitHub Configuration
+github_org = "your-github-org"  # REQUIRED - Your GitHub organization
+
+# GitHub Personal Access Token (PAT)
+# Create at: https://github.com/settings/tokens
+# Required scopes: repo (full control of private repositories), admin:repo_hook, workflow
+# Note: Keep this secret! Better to use -var or environment variable
+github_token = ""  # Set via TF_VAR_github_token environment variable
+
+# GitHub repository for infrastructure management
+github_repo = "loan_app_infra"
+
+# GitHub branch that is allowed to assume the CI/CD role
+github_branch = "main"
