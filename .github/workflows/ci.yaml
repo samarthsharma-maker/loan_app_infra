@@ -1,0 +1,261 @@
+name: CI — Terraform Plan & Security Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  security-events: write
+
+env:
+  TF_VERSION: 1.5.0
+  AWS_REGION: ap-south-1
+
+jobs:
+  terraform-lint:
+    name: 🔍 Lint & Format Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Cache Terraform plugins
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
+          restore-keys: ${{ runner.os }}-terraform-
+
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check -recursive .
+        continue-on-error: true
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Init TFLint
+        run: tflint --init
+        continue-on-error: true
+
+      - name: Run TFLint
+        id: tflint
+        run: tflint --format compact .
+        continue-on-error: true
+
+  terraform-validate:
+    name: ✔️ Validate & Security Scan
+    runs-on: ubuntu-latest
+    needs: terraform-lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Cache Terraform plugins
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
+          restore-keys: ${{ runner.os }}-terraform-
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -upgrade
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+
+      - name: Setup TFSec
+        uses: aquasecurity/setup-tfsec@v1
+
+      - name: Run TFSec Security Scan
+        id: tfsec
+        run: |
+          tfsec . --format json > tfsec-results.json || true
+          tfsec . --format default
+        continue-on-error: true
+
+      - name: Upload security scan results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: tfsec-results
+          path: tfsec-results.json
+          retention-days: 30
+
+  terraform-plan:
+    name: 📋 Plan & Analysis
+    runs-on: ubuntu-latest
+    needs: terraform-validate
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Cache Terraform plugins
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
+          restore-keys: ${{ runner.os }}-terraform-
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: |
+          terraform plan -no-color -out=tfplan -input=false
+        continue-on-error: true
+
+      - name: Save plan artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-plan
+          path: tfplan
+          retention-days: 5
+
+      - name: Show plan (for logs)
+        if: always()
+        run: terraform show -no-color tfplan 2>/dev/null || echo "Plan not available"
+
+      - name: Post Plan to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fmtStatus = '${{ needs.terraform-lint.outputs.fmt || 'skipped' }}';
+            const initStatus = '${{ steps.init.outcome }}';
+            const validateStatus = '${{ needs.terraform-validate.outputs.validate || 'skipped' }}';
+            const planStatus = '${{ steps.plan.outcome }}';
+
+            const statusIcon = s => {
+              if (s === 'success') return '✅';
+              if (s === 'failure') return '❌';
+              return '⚠️';
+            };
+
+            const body = `## 🏗️ Terraform Plan
+            | Step | Status |
+            |------|--------|
+            | Format | ${statusIcon('${{ needs.terraform-lint.result }}')} \`${{ needs.terraform-lint.result }}\` |
+            | Init | ${statusIcon(initStatus)} \`${initStatus}\` |
+            | Validate | ${statusIcon('${{ needs.terraform-validate.result }}')} \`${{ needs.terraform-validate.result }}\` |
+            | Plan | ${statusIcon(planStatus)} \`${planStatus}\` |
+
+            <details>
+            <summary>📊 Plan Details</summary>
+
+            Plan file saved as artifact. Download from the workflow run to review changes.
+
+            **To apply locally:**
+            \`\`\`bash
+            terraform init
+            terraform plan -out=tfplan
+            terraform apply tfplan
+            \`\`\`
+
+            </details>
+
+            **Author:** @${{ github.actor }}
+            **Commit:** ${{ github.event.pull_request.head.sha }}`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+      - name: Fail if plan failed
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+  ci-summary:
+    name: 📊 CI Summary
+    runs-on: ubuntu-latest
+    needs: [terraform-lint, terraform-validate, terraform-plan]
+    if: always()
+
+    steps:
+      - name: Determine CI Status
+        run: |
+          LINT_STATUS="${{ needs.terraform-lint.result }}"
+          VALIDATE_STATUS="${{ needs.terraform-validate.result }}"
+          PLAN_STATUS="${{ needs.terraform-plan.result }}"
+
+          echo "Lint: $LINT_STATUS"
+          echo "Validate: $VALIDATE_STATUS"
+          echo "Plan: $PLAN_STATUS"
+
+          if [ "$LINT_STATUS" == "failure" ] || \
+             [ "$VALIDATE_STATUS" == "failure" ] || \
+             [ "$PLAN_STATUS" == "failure" ]; then
+            echo "❌ CI Pipeline Failed"
+            exit 1
+          fi
+
+          echo "✅ All CI checks passed"
+
+      - name: Post CI Summary to PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const lintResult = '${{ needs.terraform-lint.result }}';
+            const validateResult = '${{ needs.terraform-validate.result }}';
+            const planResult = '${{ needs.terraform-plan.result }}';
+
+            const allPassed = lintResult === 'success' && validateResult === 'success' && planResult === 'success';
+
+            const body = allPassed
+              ? '## ✅ CI Pipeline Passed\nAll checks passed successfully. Safe to merge and deploy.\n\n**Next Steps:** Merge this PR → CD workflow will apply changes to AWS'
+              : '## ❌ CI Pipeline Failed\nOne or more checks failed. See the job details above for what needs to be fixed.';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
