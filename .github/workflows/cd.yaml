@@ -63,8 +63,11 @@ jobs:
 
       - name: Terraform Plan
         id: plan
+        env:
+          TF_LOCK_TIMEOUT: 5m
         run: |
-          terraform plan -no-color -out=tfplan -input=false
+          terraform plan -no-color -out=tfplan -input=false -parallelism=3 -lock-timeout=5m
+        timeout-minutes: 40
         continue-on-error: true
 
       - name: Display Plan
