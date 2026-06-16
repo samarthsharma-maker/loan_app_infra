@@ -21,16 +21,16 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-# variable "db_username" {
-#   description = "Master username for the RDS instance"
-#   type        = string
-#   default     = "loanhub"
-# }
+variable "db_username" {
+  description = "Master username for the RDS instance"
+  type        = string
+  default     = "loanhub"
+}
 
-# variable "github_org" {
-#   description = "GitHub organisation or user that owns the repos"
-#   type        = string
-# }
+variable "github_org" {
+  description = "GitHub organisation or user that owns the repos"
+  type        = string
+}
 
 data "aws_availability_zones" "available" {
   state = "available"
