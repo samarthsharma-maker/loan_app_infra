@@ -1,5 +1,5 @@
 locals {
-  ecr_repos = ["loan_app_backend ", "loan_app_frontend"]
+  ecr_repos = ["loanapp-backend ", "loanapp-frontend"]
 }
 
 module "ecr" {
