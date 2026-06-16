@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "backend_oidc_trust" {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:${var.github_org}/loanhub-backend:ref:refs/heads/main"
+        "repo:${var.github_org}/loan_app_backend :ref:refs/heads/main"
       ]
     }
   }
@@ -35,7 +35,7 @@ resource "aws_iam_role" "backend_ecr_push" {
     local.tags,
     {
       Name       = "${local.name}-backend-ecr-push-role"
-      Repository = "loanhub-backend"
+      Repository = "loan_app_backend "
       Purpose    = "ECR Docker Image Push"
     }
   )
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "backend_ecr_push_policy" {
       "ecr:PutImage"
     ]
     resources = [
-      "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/loanhub-backend"
+      "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/loan_app_backend "
     ]
   }
 }

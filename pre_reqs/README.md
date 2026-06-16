@@ -76,8 +76,8 @@ github_org = "raj-pro"
 github_token = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # DON'T commit this!
 github_repos = [
   "loan_app_infra",
-  "loanhub-backend",
-  "loanhub-frontend"
+  "loan_app_backend ",
+  "loan_app_frontend"
 ]
 github_branch = "main"
 ```

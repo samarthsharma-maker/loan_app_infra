@@ -44,7 +44,7 @@ output "rds_secret_arn" {
 }
 
 output "ecr_repository_urls" {
-  description = "Map of ECR repository URLs — loanhub-backend and loanhub-frontend"
+  description = "Map of ECR repository URLs — loan_app_backend  and loan_app_frontend"
   value       = { for k, v in module.ecr : k => v.repository_url }
 }
 
@@ -74,14 +74,14 @@ output "github_ci_roles_summary" {
     oidc_provider_arn = data.aws_iam_openid_connect_provider.github.arn
 
     backend = {
-      repo        = "loanhub-backend"
+      repo        = "loan_app_backend "
       role_arn    = aws_iam_role.backend_ecr_push.arn
       role_name   = aws_iam_role.backend_ecr_push.name
       permissions = "ECR Docker image push only"
     }
 
     frontend = {
-      repo        = "loanhub-frontend"
+      repo        = "loan_app_frontend"
       role_arn    = aws_iam_role.frontend_ecr_push.arn
       role_name   = aws_iam_role.frontend_ecr_push.name
       permissions = "ECR Docker image push only"
