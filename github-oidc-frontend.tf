@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "frontend_ecr_push_policy" {
       "ecr:PutImage"
     ]
     resources = [
-      "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/loan_app_frontend"
+      "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/loanapp-frontend"
     ]
   }
 }
