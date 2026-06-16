@@ -51,7 +51,7 @@ jobs:
 
       - name: Run TFLint
         id: tflint
-        run: tflint --format compact .
+        run: tflint --chdir . --format compact
         continue-on-error: true
 
   terraform-validate:
@@ -91,9 +91,7 @@ jobs:
         run: terraform validate
 
       - name: Install TFSec
-        run: |
-          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-          sudo mv tfsec /usr/local/bin/
+        run: curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
       - name: Run TFSec Security Scan
         id: tfsec
