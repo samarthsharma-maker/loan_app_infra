@@ -90,8 +90,10 @@ jobs:
         id: validate
         run: terraform validate
 
-      - name: Setup TFSec
-        uses: aquasecurity/setup-tfsec@v1
+      - name: Install TFSec
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+          sudo mv tfsec /usr/local/bin/
 
       - name: Run TFSec Security Scan
         id: tfsec
@@ -102,7 +104,7 @@ jobs:
 
       - name: Upload security scan results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tfsec-results
           path: tfsec-results.json
@@ -148,7 +150,7 @@ jobs:
 
       - name: Save plan artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: terraform-plan
           path: tfplan
