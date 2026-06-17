@@ -1,0 +1,184 @@
+[0m[1mrandom_password.db: Refreshing state... [id=none][0m
+[0m[1mgithub_actions_secret.frontend_aws_region: Refreshing state... [id=loan_app_frontend:AWS_REGION][0m
+[0m[1mgithub_actions_secret.backend_aws_region: Refreshing state... [id=loan_app_backend:AWS_REGION][0m
+[0m[1mmodule.ecr["loanapp-backend"].data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].data.aws_partition.current: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.rds.module.db_instance.data.aws_partition.current: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_region.current: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-frontend"].data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.rds.module.db_instance.data.aws_iam_policy_document.enhanced_monitoring: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_partition.current: Reading...[0m[0m
+[0m[1maws_iam_role.eks_admin: Refreshing state... [id=loanhub-dev-eks-admin-role][0m
+[0m[1mmodule.rds.module.db_parameter_group.aws_db_parameter_group.this[0]: Refreshing state... [id=loanhub-dev-20260617063958521800000004][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_region.current: Read complete after 0s [id=ap-south-1][0m
+[0m[1mmodule.rds.module.db_instance.data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.rds.module.db_instance.data.aws_iam_policy_document.enhanced_monitoring: Read complete after 0s [id=76086537][0m
+[0m[1mdata.aws_iam_openid_connect_provider.github: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.kms.data.aws_partition.current[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.kms.data.aws_partition.current[0]: Read complete after 0s [id=aws][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296][0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2830595799][0m
+[0m[1mmodule.ecr["loanapp-frontend"].data.aws_partition.current: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-frontend"].aws_ecr_repository.this[0]: Refreshing state... [id=loanapp-frontend][0m
+[0m[1mmodule.ecr["loanapp-frontend"].data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.ecr["loanapp-backend"].data.aws_partition.current: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-backend"].aws_ecr_repository.this[0]: Refreshing state... [id=loanapp-backend][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-backend"].data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.eks.aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/loanhub-dev/cluster][0m
+[0m[1mmodule.ecr["loanapp-backend"].data.aws_caller_identity.current: Read complete after 0s [id=488519936220][0m
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-frontend"].data.aws_caller_identity.current: Read complete after 0s [id=488519936220][0m
+[0m[1mdata.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].data.aws_caller_identity.current: Read complete after 0s [id=488519936220][0m
+[0m[1mmodule.eso_irsa.data.aws_partition.current: Reading...[0m[0m
+[0m[1mmodule.eso_irsa.data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.eso_irsa.data.aws_region.current: Reading...[0m[0m
+[0m[1mmodule.eso_irsa.data.aws_region.current: Read complete after 0s [id=ap-south-1][0m
+[0m[1mmodule.eso_irsa.data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mdata.aws_caller_identity.current: Read complete after 0s [id=488519936220][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_caller_identity.current: Read complete after 0s [id=488519936220][0m
+[0m[1mmodule.eks.module.kms.data.aws_caller_identity.current[0]: Reading...[0m[0m
+[0m[1mmodule.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0f1fca557c782a127][0m
+[0m[1mmodule.eso_irsa.data.aws_caller_identity.current: Read complete after 0s [id=488519936220][0m
+[0m[1mmodule.eks.data.aws_caller_identity.current[0]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_caller_identity.current[0]: Read complete after 0s [id=488519936220][0m
+[0m[1mmodule.eks.module.kms.data.aws_caller_identity.current[0]: Read complete after 0s [id=488519936220][0m
+[0m[1mmodule.eks.data.aws_partition.current[0]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_partition.current[0]: Read complete after 0s [id=aws][0m
+[0m[1mmodule.eks.aws_iam_role.this[0]: Refreshing state... [id=loanhub-dev-cluster-20260617063958520000000001][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_iam_role.this[0]: Refreshing state... [id=loanhub-dev-nodes-eks-node-group-20260617063958748900000005][0m
+[0m[1mmodule.ecr["loanapp-frontend"].data.aws_iam_policy_document.repository[0]: Reading...[0m[0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 0s [id=ap-south-1][0m
+[0m[1mmodule.ecr["loanapp-frontend"].data.aws_iam_policy_document.repository[0]: Read complete after 0s [id=1982985322][0m
+[0m[1mmodule.ecr["loanapp-backend"].data.aws_iam_policy_document.repository[0]: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.frontend_ecr_push_policy: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-backend"].data.aws_iam_policy_document.repository[0]: Read complete after 0s [id=1982985322][0m
+[0m[1maws_iam_policy.eso_secrets: Refreshing state... [id=arn:aws:iam::488519936220:policy/loanhub-dev-eso-secrets][0m
+[0m[1mdata.aws_iam_policy_document.frontend_ecr_push_policy: Read complete after 0s [id=1219458696][0m
+[0m[1mdata.aws_iam_policy_document.backend_ecr_push_policy: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.backend_ecr_push_policy: Read complete after 0s [id=2676539757][0m
+[0m[1mmodule.eks.data.aws_iam_session_context.current[0]: Reading...[0m[0m
+[0m[1mmodule.ecr["loanapp-backend"].aws_ecr_repository_policy.this[0]: Refreshing state... [id=loanapp-backend][0m
+[0m[1mmodule.ecr["loanapp-frontend"].aws_ecr_repository_policy.this[0]: Refreshing state... [id=loanapp-frontend][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.ebs_csi[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.ebs_csi[0]: Read complete after 0s [id=4189668531][0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.custom[0]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.custom[0]: Read complete after 0s [id=513122117][0m
+[0m[1mmodule.ecr["loanapp-frontend"].aws_ecr_lifecycle_policy.this[0]: Refreshing state... [id=loanapp-frontend][0m
+[0m[1mmodule.ecr["loanapp-backend"].aws_ecr_lifecycle_policy.this[0]: Refreshing state... [id=loanapp-backend][0m
+[0m[1mgithub_actions_secret.frontend_ecr_uri: Refreshing state... [id=loan_app_frontend:ECR_FRONTEND_URI][0m
+[0m[1mgithub_actions_secret.backend_ecr_uri: Refreshing state... [id=loan_app_backend:ECR_BACKEND_URI][0m
+[0m[1mmodule.ebs_csi_irsa.aws_iam_policy.ebs_csi[0]: Refreshing state... [id=arn:aws:iam::488519936220:policy/AmazonEKS_EBS_CSI_Policy-20260617064000442000000007][0m
+[0m[1mmodule.eks.aws_iam_policy.custom[0]: Refreshing state... [id=arn:aws:iam::488519936220:policy/loanhub-dev-cluster-20260617063958520900000003][0m
+[0m[1mmodule.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-00228d5b5444a9ad7][0m
+[0m[1mmodule.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0663737fee3d82462][0m
+[0m[1mmodule.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-04c0b02c50dc5947e][0m
+[0m[1maws_security_group.ssm_endpoints: Refreshing state... [id=sg-038eef9f4e1838510][0m
+[0m[1mmodule.vpc.aws_subnet.database[0]: Refreshing state... [id=subnet-0631912a0e3ff574a][0m
+[0m[1mmodule.vpc.aws_subnet.database[1]: Refreshing state... [id=subnet-0334177b6eb548829][0m
+[0m[1mmodule.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-0ee37b542bdc105b4][0m
+[0m[1mmodule.eks.aws_security_group.node[0]: Refreshing state... [id=sg-025b647c5c32adaff][0m
+[0m[1mmodule.rds_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-07a054b3213d7a301][0m
+[0m[1mmodule.eks.data.aws_iam_session_context.current[0]: Read complete after 1s [id=arn:aws:sts::488519936220:assumed-role/AWSReservedSSO_AdministratorAccess_7654cbec99165743/samarth.sharma@scaler.com][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0f6ee3a5a3dca939d][0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0bfb113744edb726a][0m
+[0m[1mmodule.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0e4b559c8b3ad9704][0m
+[0m[1mdata.aws_iam_openid_connect_provider.github: Read complete after 1s [id=arn:aws:iam::488519936220:oidc-provider/token.actions.githubusercontent.com][0m
+[0m[1mmodule.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-0a7cd2803f9f10493][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0e09960762fbab1be][0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-03dc5baaf67c8a1e5][0m
+[0m[1mmodule.vpc.aws_db_subnet_group.database[0]: Refreshing state... [id=loanhub-dev-vpc][0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-011c774cda29f80eb][0m
+[0m[1mdata.aws_iam_policy_document.frontend_oidc_trust: Reading...[0m[0m
+[0m[1mdata.aws_iam_policy_document.frontend_oidc_trust: Read complete after 0s [id=155738967][0m
+[0m[1mgithub_actions_secret.backend_oidc_provider_arn: Refreshing state... [id=loan_app_backend:OIDC_PROVIDER_ARN][0m
+[0m[1mdata.aws_iam_policy_document.backend_oidc_trust: Reading...[0m[0m
+[0m[1mgithub_actions_secret.frontend_oidc_provider_arn: Refreshing state... [id=loan_app_frontend:OIDC_PROVIDER_ARN][0m
+[0m[1mdata.aws_iam_policy_document.backend_oidc_trust: Read complete after 0s [id=174437426][0m
+[0m[1mmodule.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-0bcef2880253a63a6][0m
+[0m[1mmodule.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0e4b559c8b3ad97041080289494][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-805231683][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-3871128533][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-384212470][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-2998484505][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-2437002303][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-2057468836][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-4125132788][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-1512654814][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-1222354428][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-3440709105][0m
+[0m[1mmodule.rds_sg.aws_security_group_rule.ingress_with_cidr_blocks[0]: Refreshing state... [id=sgrule-3357512380][0m
+[0m[1mmodule.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-1469308982][0m
+[0m[1mmodule.rds_sg.aws_security_group_rule.egress_with_cidr_blocks[0]: Refreshing state... [id=sgrule-1678348458][0m
+[0m[1maws_iam_role.frontend_ecr_push: Refreshing state... [id=loanhub-dev-frontend-ecr-push-role][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0a5f501b9bfd2e0ac][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0b5feaadc98c81f4e][0m
+[0m[1maws_iam_role.backend_ecr_push: Refreshing state... [id=loanhub-dev-backend-ecr-push-role][0m
+[0m[1maws_vpc_endpoint.ssm["ec2messages"]: Refreshing state... [id=vpce-04780bc5543cff932][0m
+[0m[1maws_vpc_endpoint.ssm["ssm"]: Refreshing state... [id=vpce-0f8e87c211c2331a9][0m
+[0m[1maws_vpc_endpoint.ssm["ssmmessages"]: Refreshing state... [id=vpce-0aa28fed30f7bcc95][0m
+[0m[1mmodule.vpc.aws_route_table_association.database[0]: Refreshing state... [id=rtbassoc-004cda1785eb7e072][0m
+[0m[1mmodule.vpc.aws_route_table_association.database[1]: Refreshing state... [id=rtbassoc-0b5c543e205b5a2a9][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0da414c7a3ff2ea55][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0650799e5733607a4][0m
+[0m[1maws_iam_role_policy_attachment.eks_admin: Refreshing state... [id=loanhub-dev-eks-admin-role-20260617064000384300000006][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_iam_role_policy_attachment.additional["ssm"]: Refreshing state... [id=loanhub-dev-nodes-eks-node-group-20260617063958748900000005-2026061706400075770000000c][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=loanhub-dev-nodes-eks-node-group-20260617063958748900000005-2026061706400083490000000e][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=loanhub-dev-nodes-eks-node-group-20260617063958748900000005-2026061706400073920000000b][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Refreshing state... [id=loanhub-dev-nodes-eks-node-group-20260617063958748900000005-2026061706400082210000000d][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.custom[0]: Refreshing state... [id=loanhub-dev-cluster-20260617063958520000000001-2026061706400065480000000a][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"]: Refreshing state... [id=loanhub-dev-cluster-20260617063958520000000001-20260617064000627400000009][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=loanhub-dev-cluster-20260617063958520000000001-20260617064000572900000008][0m
+[0m[1mmodule.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0e8ce33efcdb1572f][0m
+[0m[1mmodule.eks.module.kms.data.aws_iam_policy_document.this[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.kms.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=1853934335][0m
+[0m[1mmodule.eks.module.kms.aws_kms_key.this[0]: Refreshing state... [id=2431c8c2-9d14-4511-ad2a-54aa0d45777a][0m
+[0m[1mmodule.rds.module.db_instance.aws_db_instance.this[0]: Refreshing state... [id=db-BFGIAA3G4TL4AQLOM2XTBQZRFM][0m
+[0m[1mmodule.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-011c774cda29f80eb1080289494][0m
+[0m[1mmodule.eks.module.kms.aws_kms_alias.this["cluster"]: Refreshing state... [id=alias/eks/loanhub-dev][0m
+[0m[1mmodule.eks.aws_iam_policy.cluster_encryption[0]: Refreshing state... [id=arn:aws:iam::488519936220:policy/loanhub-dev-cluster-ClusterEncryption20260617064035534400000018][0m
+[0m[1mmodule.eks.aws_eks_cluster.this[0]: Refreshing state... [id=loanhub-dev][0m
+[0m[1maws_iam_role_policy.backend_ecr_push: Refreshing state... [id=loanhub-dev-backend-ecr-push-role:loanhub-dev-backend-ecr-push-policy][0m
+[0m[1mgithub_actions_secret.backend_aws_role_arn: Refreshing state... [id=loan_app_backend:AWS_ROLE_ARN][0m
+[0m[1maws_iam_role_policy.frontend_ecr_push: Refreshing state... [id=loanhub-dev-frontend-ecr-push-role:loanhub-dev-frontend-ecr-push-policy][0m
+[0m[1mgithub_actions_secret.frontend_aws_role_arn: Refreshing state... [id=loan_app_frontend:AWS_ROLE_ARN][0m
+[0m[1mmodule.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Refreshing state... [id=sg-0181f1be3e39fe57e,Project][0m
+[0m[1mmodule.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Refreshing state... [id=sg-0181f1be3e39fe57e,Environment][0m
+[0m[1mmodule.eks.aws_eks_access_entry.this["admin"]: Refreshing state... [id=loanhub-dev:arn:aws:iam::488519936220:role/loanhub-dev-eks-admin-role][0m
+[0m[1mmodule.eks.data.tls_certificate.this[0]: Reading...[0m[0m
+[0m[1mmodule.eks.time_sleep.this[0]: Refreshing state... [id=2026-06-17T06:49:41Z][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].module.user_data.null_resource.validate_cluster_service_cidr: Refreshing state... [id=5873589504652880467][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_launch_template.this[0]: Refreshing state... [id=lt-08278eb159588b9e9][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["default"].aws_eks_node_group.this[0]: Refreshing state... [id=loanhub-dev:loanhub-dev-nodes-2026061706494983120000001e][0m
+[0m[1mmodule.eks.data.tls_certificate.this[0]: Read complete after 0s [id=1e3a331631939a1ae4a625cd4244a4963dabbfa2][0m
+[0m[1mmodule.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Refreshing state... [id=arn:aws:iam::488519936220:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/DA5F28CCE93A20550B17FBD3E4468FB3][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Refreshing state... [id=loanhub-dev-cluster-20260617063958520000000001-20260617064035845000000019][0m
+[0m[1mmodule.eks.aws_eks_access_policy_association.this["admin_admin"]: Refreshing state... [id=loanhub-dev#arn:aws:iam::488519936220:role/loanhub-dev-eks-admin-role#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy][0m
+[0m[1mmodule.eso_irsa.data.aws_iam_policy_document.this[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.this[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=626467789][0m
+[0m[1mmodule.eso_irsa.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=1873778117][0m
+[0m[1mmodule.ebs_csi_irsa.aws_iam_role.this[0]: Refreshing state... [id=loanhub-dev-ebs-csi-role][0m
+[0m[1mmodule.eso_irsa.aws_iam_role.this[0]: Refreshing state... [id=loanhub-dev-eso-role][0m
+[0m[1mdata.aws_eks_cluster_auth.cluster: Reading...[0m[0m
+[0m[1mdata.aws_eks_cluster_auth.cluster: Read complete after 0s [id=loanhub-dev][0m
+[0m[1mmodule.eso_irsa.aws_iam_role_policy_attachment.this["eso_secrets"]: Refreshing state... [id=loanhub-dev-eso-role-2026061706491256710000001b][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["kube-proxy"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["vpc-cni"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["coredns"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.aws_iam_role_policy_attachment.ebs_csi[0]: Refreshing state... [id=loanhub-dev-ebs-csi-role-2026061706491255520000001a][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["kube-proxy"]: Read complete after 0s [id=kube-proxy][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["coredns"]: Read complete after 0s [id=coredns][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 1s [id=aws-ebs-csi-driver][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["vpc-cni"]: Read complete after 1s [id=vpc-cni][0m
+[0m[1mmodule.eks.aws_eks_addon.this["vpc-cni"]: Refreshing state... [id=loanhub-dev:vpc-cni][0m
+[0m[1mmodule.eks.aws_eks_addon.this["kube-proxy"]: Refreshing state... [id=loanhub-dev:kube-proxy][0m
+[0m[1mmodule.eks.aws_eks_addon.this["coredns"]: Refreshing state... [id=loanhub-dev:coredns][0m
+[0m[1mmodule.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Refreshing state... [id=loanhub-dev:aws-ebs-csi-driver][0m

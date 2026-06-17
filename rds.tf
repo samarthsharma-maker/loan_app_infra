@@ -12,7 +12,7 @@ resource "random_password" "db" {
 resource "aws_secretsmanager_secret" "db" {
   name                    = "loanhub/${local.db_identifier}/db-password"
   description             = "RDS master password for ${local.db_identifier}"
-  recovery_window_in_days = 7
+  recovery_window_in_days = 0
 }
 
 resource "aws_secretsmanager_secret_version" "db" {

@@ -11,6 +11,9 @@ module "eks" {
   cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
 
+  # Disable cluster logging to avoid CloudWatch connectivity issues
+  cluster_enabled_log_types = []
+
   # Timeouts for EKS cluster creation and updates
   cluster_timeouts = {
     create = "25m"
