@@ -44,3 +44,9 @@ variable "github_branch" {
   type        = string
   default     = "main"
 }
+
+variable "github_repos" {
+  description = "List of GitHub repositories to add secrets to"
+  type        = list(string)
+  default     = ["loan_app_backend", "loan_app_frontend", "loan_app_infra", "loan_app_gitops"]
+}

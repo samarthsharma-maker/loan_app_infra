@@ -30,7 +30,8 @@ resource "github_actions_secret" "org_name" {
 
 # Create GH_TOKEN secret for CI/CD workflows to use
 resource "github_actions_secret" "gh_token" {
-  repository  = local.github_repo
+  for_each    = toset(var.github_repos)
+  repository  = each.value
   secret_name = "GH_TOKEN"
   value       = var.github_token
 }
